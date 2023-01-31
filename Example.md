@@ -1,8 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
 # Unsupervised active-transfer learning for automated landslide mapping
 
@@ -38,7 +33,6 @@ framework based on r.
 We use Palu as the target area and Reuleut as the source area.
 
 data_1.rds are from the study area named Palu.
-
 data_2.rds are from the study area named Reuleut.
 
 Note: these data are subset of whole data sets for quick going through
@@ -48,8 +42,8 @@ Let's get started by preparing the data set:
 
 ``` r
 
-data1 <- readRDS("D:/wzh/paper3/Code/data_1.rds") # Palu
-data2 <- readRDS("D:/wzh/paper3/Code/data_2.rds") # Reuleut
+data1 <- readRDS("~/data_1.rds") # Palu
+data2 <- readRDS("~/data_2.rds") # Reuleut
 
 
 summary(data1)
@@ -67,9 +61,9 @@ Case-based reasoning method:
 ``` r
 # calculating overall similarities
 
-source("D:/wzh/paper3/Code/Similarity_functions.R") # similarity functions of all attributes
+source("~/Similarity_functions.R") # similarity functions of all attributes
 
-attributes <- readRDS("D:/wzh/paper3/Code/simfactors.rds") # load attributes of two study areas
+attributes <- readRDS("~/simfactors.rds") # load attributes of two study areas
 
 # > attributes$reuleut
 # mean slope      std slope           igneous        sedimentary        metamorphic        
@@ -122,7 +116,7 @@ cbr_model <- mgcv::gam(f_source, data = data2, method = "REML",family = "binomia
 
 ``` r
 
-source('D:/wzh/paper3/Code/low-prevelance.R')
+source('~/low-prevelance.R')
 
 # calculate the posterior probabilities of the target area
 
@@ -165,7 +159,7 @@ Step one: getting the optimal c_weight value for AL model in epoch 1.
 See Adaptive unsupervised active-transfer learning.R for more details
 
 ``` r
-source("D:/wzh/paper3/Code/Adaptive unsupervised active-transfer learning.R")
+source("~/Adaptive unsupervised active-transfer learning.R")
 
 # inputs 
 c_weight_range <- c(0.005,0.007)
@@ -186,7 +180,7 @@ Step two: getting the optimal weight value for AL and CBR models in epoch 1.
 See weight_function.R for more details
 
 ``` r
-source("D:/wzh/paper3/Code/weight_function.R")
+source("~/weight_function.R")
 
 weight_al <- weight_AL_function(opti.cwe, batch_size, epoch)
 weight_cbr <- 1 - weight_al
